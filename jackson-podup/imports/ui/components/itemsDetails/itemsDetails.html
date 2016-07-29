@@ -1,0 +1,13 @@
+<!-- Add items html from cgeesmanSERadio -->
+
+The feed your selected is: {{ itemsDetails.feedId }}
+
+<ul>
+  <li ng-repeat="item in itemsDetails.items">
+    <img ng-src="{{item.image}}" height="50" width="50"/>
+        <h4>{{item.title}}</h4> 
+        <p>{{item.url}}</p>
+        <p>{{item.pubdate}}</p>
+    
+  </li>
+</ul>

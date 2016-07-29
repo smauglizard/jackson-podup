@@ -1,0 +1,15 @@
+<feed-add></feed-add>
+<!-- TODO: XXX: Wrong assumes items, when dealing with
+     feeds instead -->
+<ul>
+  <li ng-repeat="feed in feedsList.feeds">
+    <a ui-sref="itemsDetails({ feedId: feed._id })">
+      {{feed.name}}
+    </a>
+    <img ng-src="{{feed.image}}"/>
+        <h4>{{feed.title}}</h4> 
+        <p>{{feed.url}}</p>
+        <p>{{feed.pubdate}}</p>
+        <party-remove feed="feed"></party-remove>
+  </li>
+</ul>
