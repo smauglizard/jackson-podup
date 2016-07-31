@@ -10,7 +10,7 @@ class ItemsDetails {
     $reactive(this).attach($scope);
 
     this.feedId = $stateParams.feedId;
-    // Add helper here to list the items?..
+
     this.helpers({
             items() {
                 return Items.find({feedId: this.feedId});

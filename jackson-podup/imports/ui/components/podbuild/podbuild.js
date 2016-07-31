@@ -3,6 +3,7 @@ import angularMeteor from 'angular-meteor';
 import uiRouter from 'angular-ui-router';
 import './podbuild.html';
 import { name as FeedsList } from '../feedsList/feedsList';
+import { name as PlayItem } from '../playItem/playItem';
 import { name as ItemsDetails } from '../itemsDetails/itemsDetails';
 import { name as Navigation } from '../navigation/navigation';
 
@@ -16,6 +17,7 @@ export default angular.module(name, [
   uiRouter,
   FeedsList,
   ItemsDetails,
+  PlayItem,
   Navigation
 ]).component(name, {
   templateUrl: `imports/ui/components/${name}/${name}.html`,

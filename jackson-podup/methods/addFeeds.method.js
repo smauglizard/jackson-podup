@@ -62,17 +62,19 @@ Meteor.methods({
         var stream = this;
         var item;
         while (item = stream.read()) {
-          if(item['rss:enclosure']['@'].url) {
-            allitems.push({
-            feedId: feedId,
-            title: item.title,
-            pubdate: new Date(item.pubdate),
-            link: item.link,
-            //url: item.url,
-            url: item['rss:enclosure']['@'].url,
-            image: item.image.url
-          });
-        } else {
+          //var incs_url = item['rss:enclosure']['@'].url || null;
+
+         // if(incs_url === undefined) {
+         //   allitems.push({
+         //   feedId: feedId,
+         //   title: item.title,
+         //   pubdate: new Date(item.pubdate),
+         //   link: item.link,
+         //   //url: item.url,
+         //   url: item['rss:enclosure']['@'].url,
+         //   image: item.image.url
+         // });
+         // } else {
             allitems.push({
             feedId: feedId,
             title: item.title,
@@ -82,7 +84,7 @@ Meteor.methods({
             //url: item['rss:enclosure']['@'].url,
             image: item.image.url
           });
-        }
+        //}
           //lastdate = new Date(item.pubdate);
         }
       });
