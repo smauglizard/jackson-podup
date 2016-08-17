@@ -4,7 +4,7 @@ import uiRouter from 'angular-ui-router';
 import utilsPagination from 'angular-utils-pagination';
 import './feedsList.html';
 import { Feeds } from '../../../api/feeds';
-import { name as FeedsSort } from '../feedsSort/feedsSort';
+//import { name as FeedsSort } from '../feedsSort/feedsSort';
 import { name as FeedAdd } from '../feedAdd/feedAdd';
 import { name as PartyRemove } from '../partyRemove/partyRemove';
 import { Counts } from 'meteor/tmeasday:publish-counts';
@@ -58,7 +58,7 @@ export default angular.module(name, [
   uiRouter,
   utilsPagination,
   FeedAdd,
-  FeedsSort,
+  //FeedsSort,
   PartyRemove  
 ]).component(name, {
   templateUrl: `imports/ui/components/${name}/${name}.html`,
