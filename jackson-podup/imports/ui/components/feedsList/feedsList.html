@@ -1,15 +1,19 @@
 <feed-add></feed-add>
 <!-- TODO: XXX: Wrong assumes items, when dealing with
      feeds instead -->
+<input type="search" ng-model="feedsList.searchText" placeholder="Search" />
+<feeds-sort on-change="feedsList.sortChanged(sort)" property="name" order="1"></feeds-sort>
 <ul>
-  <li ng-repeat="feed in feedsList.feeds">
+<!--  <li ng-repeat="feed in feedsList.feeds"> -->
+<li dir-paginate="feed in feedsList.feeds | itemsPerPage: feedsList.perPage" total-items="feedsList.feedsCount"> 
     <a ui-sref="itemsDetails({ feedId: feed._id })">
       {{feed.name}}
     </a>
-    <img ng-src="{{feed.image}}"/>
+    <img ng-src="{{feed.image}}" height="50" width="50"/>
         <h4>{{feed.title}}</h4> 
         <p>{{feed.url}}</p>
         <p>{{feed.pubdate}}</p>
         <party-remove feed="feed"></party-remove>
   </li>
 </ul>
+<dir-pagination-controls on-page-change="feedsList.pageChanged(newPageNumber)"></dir-pagination-controls> 

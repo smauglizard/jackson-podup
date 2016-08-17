@@ -18,7 +18,8 @@ export default angular.module(name, [
   FeedsList,
   ItemsDetails,
   PlayItem,
-  Navigation
+  Navigation,
+  'accounts.ui'
 ]).component(name, {
   templateUrl: `imports/ui/components/${name}/${name}.html`,
   controllerAs: name,

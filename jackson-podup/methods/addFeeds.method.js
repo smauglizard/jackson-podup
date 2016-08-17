@@ -20,6 +20,7 @@ Meteor.methods({
       var feedId;
       //var url = 'http://feeds.feedburner.com/se-radio';
       // Maybe add subscription of a list of urls..
+      // probably a daft `feature-creep' idea, but...
       var feeds = [{
         'url': url
       }];
@@ -29,7 +30,7 @@ Meteor.methods({
           'url': feed.url
         });
         if (!exists) {
-          feedId = Feeds.insert({
+          Feeds.insert({
             url: feed.url
           }, function(err, res) {
             if (err) {
@@ -42,7 +43,7 @@ Meteor.methods({
         } else {
           console.log("You are already subscribed to this feed...exists is...");
           // will return in `production'....
-          feedId = feed._id;
+          //feedId = feed._id;
           console.log('Feed already exists...');
           return 'Feed already exists...';
         }
@@ -61,33 +62,34 @@ Meteor.methods({
       feedparser.on('readable', function() {
         var stream = this;
         var item;
+        var feedId;
         while (item = stream.read()) {
-          //var incs_url = item['rss:enclosure']['@'].url || null;
-
-         // if(incs_url === undefined) {
-         //   allitems.push({
-         //   feedId: feedId,
-         //   title: item.title,
-         //   pubdate: new Date(item.pubdate),
-         //   link: item.link,
-         //   //url: item.url,
-         //   url: item['rss:enclosure']['@'].url,
-         //   image: item.image.url
-         // });
-         // } else {
+            if(!feedId) {
+              Fiber(function(){
+                feedId = Feeds.update({
+                  url: url}, { $set: {
+                  title: stream.meta.title,
+                  description: stream.meta.description,
+                  image: stream.meta.image.url,
+                  pubDate: stream.meta.pubDate,
+                  lastChecked: new Date()
+                }
+               });
+              //addSubscription(userId, feedId);
+              }).run();
+            }
             allitems.push({
             feedId: feedId,
             title: item.title,
             pubdate: new Date(item.pubdate),
             link: item.link,
-            url: item.url,
+            //url: item.url,
             //url: item['rss:enclosure']['@'].url,
             image: item.image.url
           });
-        //}
-          //lastdate = new Date(item.pubdate);
         }
       });
+
       feedparser.on('end', function() {
         //var url = 'http://feeds.feedburner.com/se-radio';
         Fiber(function() {

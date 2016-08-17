@@ -25,6 +25,21 @@ class FeedAdd {
     this.reset();
     }
   }
+
+  sub_scribe() {
+    if(Meteor.isClient){
+       Meteor.call('subScribe', this.url, function(err, result) {
+            if(err){
+                console.log(err.reason);
+            } else {
+                console.log(result)
+            }
+        });
+
+    this.reset();
+    }
+  }
+
   reset(){
       this.party = {};
   }

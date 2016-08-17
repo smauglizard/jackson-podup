@@ -28,7 +28,7 @@ function config($stateProvider) {
   'ngInject';
  
   $stateProvider.state('playItem', {
-    url: '/feeds/:itemId',
+    url: '/items/:itemId',
     template: '<play-item></play-item>'
   });
 }
