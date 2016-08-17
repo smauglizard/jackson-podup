@@ -3,7 +3,7 @@ import { Counts } from 'meteor/tmeasday:publish-counts';
 import { Feeds } from '../imports/api/feeds';
  
 if (Meteor.isServer) {
-    Meteor.publish('feeds', function(options, searchString) {
+  Meteor.publish('feeds', function(options, searchString) {
   var user = Meteor.users.findOne({
     _id: this.userId 
   });
