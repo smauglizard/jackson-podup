@@ -14,11 +14,13 @@ Meteor.publish('items', function(options) {
     //},
     'feedId': {
       '$in': user.subscriptions
-    }//,{
+    },
+    'feedId': options.feedId
+    
     //'pubDate': {
     //  $gte: dateFrom,
     //  $lte: dateTo
-    };
+  };
   //};
   Counts.publish(this, 'numberOfItems', Items.find(where), {noReady: true});
   return Items.find({}, options);

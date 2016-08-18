@@ -20,23 +20,24 @@ class ItemsDetails {
     this.sort = {
       title: 1
     };
-   
+
     this.subscribe('items', function() {
       return [{
         sort: this.getReactively('sort'),
         limit: parseInt(this.getReactively('perPage')),
-        skip: ((parseInt(this.getReactively('page'))) - 1) * (parseInt(this.getReactively('perPage')))
+        skip: ((parseInt(this.getReactively('page'))) - 1) * (parseInt(this.getReactively('perPage'))),
+        feedId: this.feedId
       }];
     });
  
     this.helpers({
       items() {
-        return Items.find({feedId: this.feedId} , {
-            sort: this.getReactively('sort')
-        });
+        return Items.find({feedId: this.feedId}) //, {
+          //  sort: this.getReactively('sort')
+        //});
       },
       itemsCount() {
-        return Counts.get('numberOfItems');
+        return Counts.get('numberOfItems', this.feedId);
       }
     });
   }

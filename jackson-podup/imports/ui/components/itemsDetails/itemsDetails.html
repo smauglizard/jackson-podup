@@ -2,7 +2,6 @@
 
 The feed your selected is: {{ itemsDetails.feedId }}
 <feeds-sort on-change="itemsDetails.sortChanged(sort)" property="title" order="1"></feeds-sort>
-
 <ul>
 <!--  <li ng-repeat="item in itemsDetails.items"> -->
  <li dir-paginate="item in itemsDetails.items | itemsPerPage: itemsDetails.perPage" total-items="itemsDetails.itemsCount">

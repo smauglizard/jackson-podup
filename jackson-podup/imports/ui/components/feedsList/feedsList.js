@@ -58,7 +58,6 @@ export default angular.module(name, [
   uiRouter,
   utilsPagination,
   FeedAdd,
-  //FeedsSort,
   PartyRemove  
 ]).component(name, {
   templateUrl: `imports/ui/components/${name}/${name}.html`,
