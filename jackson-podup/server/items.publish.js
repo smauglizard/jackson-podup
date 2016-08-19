@@ -12,9 +12,11 @@ Meteor.publish('items', function(options) {
     //  '$regex': '.*' + (searchString || '') + '.*',
     //  '$options': 'i'
     //},
-    'feedId': {
-      '$in': user.subscriptions
-    },
+    // Try eliminating the following lines...
+    //'feedId': {
+    //  '$in': user.subscriptions
+    //},
+    //but not this bit..
     'feedId': options.feedId
     
     //'pubDate': {

@@ -3,7 +3,7 @@ import angularMeteor from 'angular-meteor';
 import uiRouter from 'angular-ui-router';
 import utilsPagination from 'angular-utils-pagination';
 import { Items } from '../../../api/items';
-import { name as FeedsSort } from '../feedsSort/feedsSort';
+//import { name as FeedsSort } from '../feedsSort/feedsSort';
 import { Counts } from 'meteor/tmeasday:publish-counts';
 import './itemsDetails.html';
  
@@ -23,7 +23,7 @@ class ItemsDetails {
 
     this.subscribe('items', function() {
       return [{
-        sort: this.getReactively('sort'),
+        //sort: this.getReactively('sort'),
         limit: parseInt(this.getReactively('perPage')),
         skip: ((parseInt(this.getReactively('page'))) - 1) * (parseInt(this.getReactively('perPage'))),
         feedId: this.feedId
@@ -32,8 +32,8 @@ class ItemsDetails {
  
     this.helpers({
       items() {
-        return Items.find({feedId: this.feedId}) //, {
-          //  sort: this.getReactively('sort')
+        return Items.find({feedId: this.feedId}); //, {
+            //sort: this.getReactively('sort')
         //});
       },
       itemsCount() {
@@ -42,9 +42,9 @@ class ItemsDetails {
     });
   }
 
-  sortChanged(sort) {
-    this.sort = sort;
-  }
+  //sortChanged(sort) {
+  //  this.sort = sort;
+  //}
 
   pageChanged(newPage) {
     this.page = newPage;
@@ -57,7 +57,7 @@ const name = 'itemsDetails';
 export default angular.module(name, [
   angularMeteor,
   utilsPagination,
-  FeedsSort,
+  //FeedsSort,
   uiRouter 
 ]).component(name, {
   templateUrl: `imports/ui/components/${name}/${name}.html`,
