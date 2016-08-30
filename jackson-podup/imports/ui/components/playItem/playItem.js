@@ -1,15 +1,54 @@
 import angular from 'angular';
 import angularMeteor from 'angular-meteor';
+import { Meteor } from 'meteor/meteor';
 import uiRouter from 'angular-ui-router';
- 
+import { Items } from '../../../api/items';
+//import { soundManager } from 'wenape_soundmanager';
+//var soundManager = Npm.require('soundmanager2');
 import './playItem.html';
  
 class PlayItem {
-  constructor($stateParams) {
+  constructor($stateParams, $reactive, $scope, $sce) {
     'ngInject';
- 
+
+    this.url='';
+    $reactive(this).attach($scope);
+    //soundManager = Npm.require('soundmanager');
     this.itemId = $stateParams.itemId;
+
+    this.helpers({
+      item() {
+        return Items.findOne({_id: this.itemId}); 
+
+      }
+    });
+    this.url = this.item.url;
+    console.log(this.url);
+
+    $scope.audioUrl = $sce.trustAsResourceUrl(this.url); 
+
   }
+   // soundManager.setup({
+   //     url: './swf/',
+   //     flashVersion: 9, // optional: shiny features (default = 8)
+   //     // optional: ignore Flash where possible, use 100% HTML5 mode
+   //     preferFlash: false
+   //     //onready: function() {
+   //     //  soundManager.createSound();
+   //     //}
+   //   });
+    //} 
+    //playIt(){
+     // var audio = new Audio(this.item.link);
+     // audio.play();
+     // soundManager.createSound({
+     //   id: itemId,
+     //   url: itemLink,
+     //   type: 'audio/mp3'
+     // }).play();
+
+    //}
+  
 }
  
 const name = 'playItem';
@@ -17,7 +56,8 @@ const name = 'playItem';
 // create a module
 export default angular.module(name, [
   angularMeteor,
-  uiRouter
+  uiRouter,
+  //soundManger
 ]).component(name, {
   templateUrl: `imports/ui/components/${name}/${name}.html`,
   controllerAs: name,

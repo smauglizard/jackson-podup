@@ -56,7 +56,7 @@ Meteor.methods({
                 Items.insert({
                   feedId: feedId,
                   title: item.title,
-                  //url: item['rss:enclosure']['@'].url,
+                  url: item['rss:enclosure']['@'].url,
                   image: item.image.url,
                   pubDate: item.pubDate
                 });

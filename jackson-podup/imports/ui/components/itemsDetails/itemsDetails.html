@@ -1,16 +1,17 @@
+<!-- Add items html from cgeesmanSERadio -->
 
 The feed your selected is: {{ itemsDetails.feedId }}
+
 <ul>
 <!--  <li ng-repeat="item in itemsDetails.items"> -->
  <li dir-paginate="item in itemsDetails.items | itemsPerPage: itemsDetails.perPage" total-items="itemsDetails.itemsCount">
  
     <img ng-src="{{item.image}}" height="50" width="50"/>
         <a ui-sref="playItem({itemId: item._id})">
-        PlayLink
-       </a>
+          PlayLink
+        </a>
 
         <h4>{{item.title}}</h4> 
-        <p>{{item.url}}</p>
         <p>{{item.pubdate}}</p>
     
   </li>
