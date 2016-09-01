@@ -4,9 +4,10 @@ The feed your selected is: {{ itemsDetails.feedId }}
 
 <ul>
 <!--  <li ng-repeat="item in itemsDetails.items"> -->
- <li dir-paginate="item in itemsDetails.items | itemsPerPage: itemsDetails.perPage" total-items="itemsDetails.itemsCount">
+ <li dir-paginate="item in itemsDetails.items | itemsPerPage: itemsDetails.perPage" total-items="itemsDetails.itemsCount" current-page="itemsDetails.page">
  
     <img ng-src="{{item.image}}" height="50" width="50"/>
+        <a href="/feeds/{{item.feedId}}">{{item.title}}</a>
         <a ui-sref="playItem({itemId: item._id})">
           PlayLink
         </a>

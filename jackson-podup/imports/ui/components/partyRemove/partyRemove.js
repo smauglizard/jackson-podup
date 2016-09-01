@@ -3,12 +3,15 @@ import angularMeteor from 'angular-meteor';
  
 import './partyRemove.html';
 import { Feeds } from '../../../api/feeds';
+import { Items } from '../../../api/items';
 
 class PartyRemove {
   remove() {
     if (this.feed) {
-      Feeds.remove(this.feed._id);
-    }
+      Feeds.remove({_id:this.feed._id});
+      Items.remove({feedId:this.feed._id});
+
+   }
   }
 }
  
