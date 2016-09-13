@@ -13,7 +13,7 @@ Meteor.publish('items', function(options) {
   };
   
   Counts.publish(this, 'numberOfItems', Items.find(where), {noReady: true});
-  return Items.find({}, options);
+  return Items.find(where, options);
 
 });
 
