@@ -1,6 +1,6 @@
 import angular from 'angular';
 import angularMeteor from 'angular-meteor';
- 
+import { Meteor }from 'meteor/meteor'; 
 import './partyRemove.html';
 import { Feeds } from '../../../api/feeds';
 import { Items } from '../../../api/items';
@@ -8,10 +8,9 @@ import { Items } from '../../../api/items';
 class PartyRemove {
   remove() {
     if (this.feed) {
-      Feeds.remove({_id:this.feed._id});
-      Items.remove({feedId:this.feed._id});
-
-   }
+      console.log("removing feed" );
+      Meteor.users.update({'_id':Meteor.userId()},{'$pull': {'subscriptions': this.feed._id }});    
+    }
   }
 }
  

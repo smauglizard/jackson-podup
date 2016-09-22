@@ -6,6 +6,7 @@ import { name as FeedsList } from '../feedsList/feedsList';
 import { name as PlayItem } from '../playItem/playItem';
 import { name as ItemsDetails } from '../itemsDetails/itemsDetails';
 import { name as Navigation } from '../navigation/navigation';
+import { name as UnReads } from '../unReads/unReads';
 
 class Podbuild {}
 
@@ -18,6 +19,7 @@ export default angular.module(name, [
   FeedsList,
   ItemsDetails,
   PlayItem,
+  UnReads,
   Navigation,
   'accounts.ui'
 ]).component(name, {
