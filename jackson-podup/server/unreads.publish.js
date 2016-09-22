@@ -1,8 +1,8 @@
 import { Meteor } from 'meteor/meteor';
  
-import { Items } from '../imports/api/items';
+import { UnReads } from '../imports/api/unreads';
 
-Meteor.publish('items', function(options) {
+Meteor.publish('unreads', function(options) {
 
   //var user = Meteor.users.findOne({
   //  _id: this.userId 

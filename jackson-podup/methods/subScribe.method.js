@@ -20,6 +20,7 @@ var addSubscription = function(userId, feedId) {
 Meteor.methods({
   subScribe: function(url) {
     if(Meteor.isServer) {
+      // Should this be `this.userId'?..
       var userId = Meteor.userId();
       var Future = Npm.require('fibers/future');
       var future = new Future();
