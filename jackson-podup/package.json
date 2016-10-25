@@ -11,6 +11,6 @@
     "angular-utils-pagination": "^0.11.1",
     "feedparser": "^1.1.4",
     "meteor-node-stubs": "^0.2.3",
-    "request": "^2.74.0"
+    "request": "^2.75.0"
   }
 }

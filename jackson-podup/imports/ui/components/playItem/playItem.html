@@ -1,7 +1,7 @@
 The item your selected is: {{ playItem.itemId }}
 
 <!--<p ng-repeat="item.link in playItem.item"> -->
-<audio ng-src="{{audioUrl}}" type="audio/mpeg" controls />
+<audio ng-click="playItem.itemSeen()" ng-src="{{audioUrl}}" type="audio/mpeg" controls />
 <!-- <source ng-src=playItem.item.link type="audio/mpeg" /> 
 <button ng-click="playItem.playIt()">Play Item!</button>
 </audio> -->

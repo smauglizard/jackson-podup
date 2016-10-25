@@ -3,6 +3,7 @@ import angularMeteor from 'angular-meteor';
 import { Meteor } from 'meteor/meteor';
 import uiRouter from 'angular-ui-router';
 import { Items } from '../../../api/items';
+import { Listened } from '../../../api/listened';
 //import { soundManager } from 'wenape_soundmanager';
 //var soundManager = Npm.require('soundmanager2');
 import './playItem.html';
@@ -12,6 +13,7 @@ class PlayItem {
     'ngInject';
 
     this.url='';
+    var arr = [];
     $reactive(this).attach($scope);
     //soundManager = Npm.require('soundmanager');
     this.itemId = $stateParams.itemId;
@@ -20,14 +22,33 @@ class PlayItem {
       item() {
         return Items.findOne({_id: this.itemId}); 
 
+      },
+      itemLean(){
+        return Items.findOne({_id: this.itemId});
+      },
+      addItem(){
+        console.log("adding item...");
+        Listened.insert({userId: Meteor.userId(),
+          title:this.item.title,
+          itemId:this.itemId, 
+          url:this.item.url, 
+          feedId:this.item.feedId,
+          pubDate:this.item.pubDate,
+          image:this.item.image
+        });
       }
     });
+   
     this.url = this.item.url;
     console.log(this.url);
 
     $scope.audioUrl = $sce.trustAsResourceUrl(this.url); 
 
   }
+  itemSeen(){
+    this.addItem(); 
+  }
+
    // soundManager.setup({
    //     url: './swf/',
    //     flashVersion: 9, // optional: shiny features (default = 8)

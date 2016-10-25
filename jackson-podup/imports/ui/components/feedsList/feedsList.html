@@ -8,12 +8,13 @@
 <li dir-paginate="feed in feedsList.feeds | itemsPerPage: feedsList.perPage" total-items="feedsList.feedsCount"> 
     <a ui-sref="itemsDetails({ feedId: feed._id })">
       {{feed.name}}
-      Feed items
-    </a>
-    <a ui-sref="unReads({ feedId: feed._id })">
-      {{feed.name}}
+      <!-- Feed items -->
       UnReads
     </a>
+    <!--<a ui-sref="unReads({ feedId: feed._id })">
+      {{feed.name}}
+      UnReads
+    </a> -->
 
     <img ng-src="{{feed.image}}" height="50" width="50"/>
         <h4>{{feed.title}}</h4> 
