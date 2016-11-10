@@ -23,9 +23,6 @@ class PlayItem {
         return Items.findOne({_id: this.itemId}); 
 
       },
-      itemLean(){
-        return Items.findOne({_id: this.itemId});
-      },
       addItem(){
         console.log("adding item...");
         Listened.insert({userId: Meteor.userId(),

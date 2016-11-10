@@ -8,6 +8,7 @@ import { Feeds } from '../../../api/feeds';
 import { name as FeedAdd } from '../feedAdd/feedAdd';
 import { name as PartyRemove } from '../partyRemove/partyRemove';
 import { Counts } from 'meteor/tmeasday:publish-counts';
+import { Meteor } from 'meteor/meteor';
 
 class FeedsList {
   constructor($scope, $reactive) {
@@ -39,6 +40,9 @@ class FeedsList {
       },
       feedsCount() {
         return Counts.get('numberOfFeeds');
+      },
+      isLoggedIn() {
+        return !!Meteor.userId();
       }
     });
   }
