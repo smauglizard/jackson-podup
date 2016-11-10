@@ -1,26 +1,45 @@
-<feed-add ng-show="feedsList.isLoggedIn"></feed-add>
-<!-- TODO: XXX: Wrong assumes items, when dealing with
-     feeds instead -->
-<input type="search" ng-model="feedsList.searchText" placeholder="Search" />
-<feeds-sort on-change="feedsList.sortChanged(sort)" property="name" order="1"></feeds-sort>
-<ul>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <feed-add ng-show="feedsList.isLoggedIn"></feed-add>
+      <div class="alert alert-warning" role="alert" ng-hide="feedsList.isLoggedIn">
+         Log in to subscribe to feeds
+     </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <h2>List of Feeds:</h2>
+      <form class="form-inline"> 
+          <input type="search" ng-model="feedsList.searchText" placeholder="Search" />
+          <!--<feeds-sort on-change="feedsList.sortChanged(sort)" property="name" order="1"></feeds-sort> -->
+      </form>
+    </div>
+  </div>
+<!--<ul> -->
 <!--  <li ng-repeat="feed in feedsList.feeds"> -->
-<li dir-paginate="feed in feedsList.feeds | itemsPerPage: feedsList.perPage" total-items="feedsList.feedsCount"> 
-    <a ui-sref="itemsDetails({ feedId: feed._id })">
-      {{feed.name}}
-      <!-- Feed items -->
-      UnReads
-    </a>
-    <!--<a ui-sref="unReads({ feedId: feed._id })">
-      {{feed.name}}
-      UnReads
-    </a> -->
-
-    <img ng-src="{{feed.image}}" height="50" width="50"/>
-        <h4>{{feed.title}}</h4> 
-        <p>{{feed.url}}</p>
-        <p>{{feed.pubdate}}</p>
-        <party-remove feed="feed">remove feed</party-remove>
+<div class="row">
+  <div class="col-md-6">
+    <ul class="feeds">
+      <li dir-paginate="feed in feedsList.feeds | itemsPerPage: feedsList.perPage" total-items="feedsList.feedsCount">        <div class="row">
+            <div class="col-sm-8">
+              <h3 class="feed-name">
+                <a ui-sref="itemsDetails({ feedId: feed._id })">
+                  {{feed.name}}
+                  UnReads
+                </a>
+               <img ng-src="{{feed.image}}" height="50" width="50"/>
+                 <h4>{{feed.title}}</h4> 
+                 <p>{{feed.url}}</p>
+                 <p>{{feed.pubdate}}</p>
+ 
+            </div>
+            <div class="col-sm-4">
+              <party-remove feed="feed">remove feed</party-remove>
+            </div>
+        </div>
+      </div>
   </li>
 </ul>
-<dir-pagination-controls on-page-change="feedsList.pageChanged(newPageNumber)"></dir-pagination-controls> 
+<dir-pagination-controls on-page-change="feedsList.pageChanged(newPageNumber)"></dir-pagination-controls>
+</div>

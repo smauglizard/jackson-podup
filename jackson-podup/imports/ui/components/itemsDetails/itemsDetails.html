@@ -1,11 +1,14 @@
-<!-- Add items html from cgeesmanSERadio -->
 
+<!-- Take the following out for `production' -->
 The feed your selected is: {{ itemsDetails.feedId }}
-<input type="search" ng-model="itemsDetails.searchText" placeholder="Search" />
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-6">
+      <input type="search" ng-model="itemsDetails.searchText" placeholder="Search" />
 
-<ul>
+   <ul>
 <!--  <li ng-repeat="item in itemsDetails.items"> -->
- <li dir-paginate="item in itemsDetails.items | itemsPerPage: itemsDetails.perPage" total-items="itemsDetails.itemsCount" current-page="itemsDetails.page">
+     <li dir-paginate="item in itemsDetails.items | itemsPerPage: itemsDetails.perPage" total-items="itemsDetails.itemsCount" current-page="itemsDetails.page">
  
     <img ng-src="{{item.image}}" height="50" width="50"/>
         <a href="/feeds/{{item.feedId}}">{{item.title}}</a>
@@ -16,7 +19,10 @@ The feed your selected is: {{ itemsDetails.feedId }}
         <h4>{{item.title}}</h4> 
         <p>{{item.pubdate}}</p>
     
-  </li>
-</ul>
+     </li>
+  </ul>
 
-<dir-pagination-controls on-page-change="itemsDetails.pageChanged(newPageNumber)"></dir-pagination-controls>
+   <dir-pagination-controls on-page-change="itemsDetails.pageChanged(newPageNumber)"></dir-pagination-controls>
+   </div>
+  </div>
+</div>
