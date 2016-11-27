@@ -23,18 +23,22 @@ class PlayItem {
         return Items.findOne({_id: this.itemId}); 
 
       },
+      listened(){
+        return Listened.findOne({itemId: this.itemId});
+      },
       addItem(){
-        console.log("adding item...");
-        Listened.insert({userId: Meteor.userId(),
-          title:this.item.title,
-          itemId:this.itemId, 
-          url:this.item.url, 
-          feedId:this.item.feedId,
-          pubDate:this.item.pubDate,
-          image:this.item.image
-        });
-      }
-    });
+          console.log("adding item...");
+          Listened.insert({
+            userId: Meteor.userId(), 
+            title:this.item.title,
+            itemId:this.itemId, 
+            url:this.item.url, 
+            feedId:this.item.feedId,
+            pubDate:this.item.pubDate,
+            image:this.item.image
+          });
+       }
+     });
    
     this.url = this.item.url;
     console.log(this.url);

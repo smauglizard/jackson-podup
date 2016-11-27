@@ -7,10 +7,11 @@ Meteor.publish('items', function(options, searchString) {
     var user = Meteor.users.findOne({
     _id: this.userId 
     });
-
-    var listened = Listened.find({});
+ 
+    var listened = Listened.find({"userId": this.userId});
     var listenedIds = listened.map(function(x) { return x.itemId; });
     console.log("listenedIds is...: " + listenedIds);
+
     if(searchString){
       var where = {
          'title': {
@@ -23,7 +24,7 @@ Meteor.publish('items', function(options, searchString) {
       var where = {
          'feedId': options.feedId,
          '_id':{
-           '$nin' : listenedIds
+               '$nin' : listenedIds
          }
       };
     }
