@@ -1,8 +1,28 @@
 The item your selected is: {{ playItem.itemId }}
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <playlist-add ng-show="playItem.isLoggedIn"></playlist-add>
+      <div class="alert alert-warning" role="alert" ng-hide="playItem.isLoggedIn">
+         Log in to add items to playlists...
+     </div>
+    </div>
+  </div>
 
 <!--<p ng-repeat="item.link in playItem.item"> -->
 <audio ng-click="playItem.itemSeen()" ng-src="{{audioUrl}}" preload="auto" type="audio/mpeg" tabindex="0"controls="" />
-<!-- <source ng-src=playItem.item.link type="audio/mpeg" /> 
+</div>
+<!--<form>
+  <div class="form-group">
+    <label>
+      Add to Playlist:
+    </label>
+    <input type="text" ng-model="feedAdd.url" class="form-control" />
+  </div> -->
+   <!-- <button ng-click="feedAdd.submit()">Add Feed!</button> -->
+   <!-- <button ng-click="feedAdd.sub_scribe()">subScribe!</button> 
+</form>
+<source ng-src=playItem.item.link type="audio/mpeg" /> 
 <button ng-click="playItem.playIt()">Play Item!</button>
 </audio> -->
 <!-- <button text="mp3Player" ng-include src="playItem.SoundManager"> </button> -->

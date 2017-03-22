@@ -8,7 +8,6 @@ import './feedAdd.html';
 class FeedAdd {
     constructor() {
         'ngInject';
-        this.party = {};
         this.url='';
     }
  
@@ -17,8 +16,10 @@ class FeedAdd {
        Meteor.call('addFeeds', this.url, function(err, result) {
             if(err){
                 console.log(err.reason);
+                return err;
             } else {
-                console.log(result)
+                console.log(result);
+                return;
             }
         });
 
@@ -32,17 +33,17 @@ class FeedAdd {
             if(err){
                 console.log(err.reason);
             } else {
-                console.log(result)
+                console.log(result);
+                return;
             }
         });
 
-    this.reset();
     }
   }
 
-  reset(){
-      this.party = {};
-  }
+  //reset(){
+  //    this.party = {};
+  //}
 }
  
 const name = 'feedAdd';

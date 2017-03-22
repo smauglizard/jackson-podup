@@ -20,12 +20,18 @@ var addSubscription = function(userId, feedId) {
 Meteor.methods({
   subScribe: function(url) {
     if(Meteor.isServer) {
-      // Should this be `this.userId'?..
       var userId = Meteor.userId();
       var Future = Npm.require('fibers/future');
       var future = new Future();
       var Fiber = Npm.require('fibers');
       var feedparser = new FeedParser();
+      var options = {
+           url: url,
+           headers: {
+             'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/602.4.8 (KHTML, like Gecko) Version/10.0.3 Safari/602.4.8'
+             }
+        };
+
       var feed = Feeds.findOne({
         url: url 
       });
@@ -34,14 +40,19 @@ Meteor.methods({
         return 'already exists';
       }
       else {
-        var req = request(url); 
+        var req = request(options); 
         var feedId;
         req.on('response', function(res) {
           var stream = this;
           stream.pipe(feedparser);
         });
+        feedparser.on('error', function() {
+            return;
+          });
+
         feedparser.on('readable', function() {
           var stream = this;
+          var item;
           Fiber(function() {
             if(!feedId) {
               feedId = Feeds.insert({
@@ -54,19 +65,24 @@ Meteor.methods({
               });
               addSubscription(userId, feedId);
               while(item = stream.read()) {
-                Items.insert({
-                  feedId: feedId,
-                  title: item.title,
-                  url: item['rss:enclosure']['@'].url,
-                  image: item.image.url,
-                  pubDate: item.pubDate
-                });
+                  if(item && item['rss:enclosure'] && item['rss:enclosure']['@'] && item['rss:enclosure']['@'].url){
+                    Items.insert({
+                      feedId: feedId,
+                      title: item.title,
+                      url: item['rss:enclosure']['@'].url,
+                      image: item.image.url,
+                      pubDate: item.pubDate
+                    });
+                  } else {
+                       console.log("item not stored for feed..." + url);
+                       continue;
+                  }
               }
             }
           }).run();
         });
         feedparser.on('end', function() {
-          future.return(feed);
+          future.return(feedId);
         });
         
       }

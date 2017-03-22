@@ -3,6 +3,7 @@ import angularMeteor from 'angular-meteor';
 import { Meteor } from 'meteor/meteor';
 import uiRouter from 'angular-ui-router';
 import { Items } from '../../../api/items';
+import { name as PlayListAdd } from '../playlistAdd/playlistAdd';
 import { Listened } from '../../../api/listened';
 //import { soundManager } from 'wenape_soundmanager';
 //var soundManager = Npm.require('soundmanager2');
@@ -37,8 +38,11 @@ class PlayItem {
             pubDate:this.item.pubDate,
             image:this.item.image
           });
-       }
-     });
+       },
+       isLoggedIn() {
+        return !!Meteor.userId();
+      }
+    });
    
     this.url = this.item.url;
     console.log(this.url);
@@ -79,6 +83,7 @@ const name = 'playItem';
 export default angular.module(name, [
   angularMeteor,
   uiRouter,
+  PlayListAdd
   //soundManger
 ]).component(name, {
   templateUrl: `imports/ui/components/${name}/${name}.html`,
