@@ -9,21 +9,12 @@ import { UnReads } from '../imports/api/unreads';
 Meteor.startup(function() {
   var Fiber = Npm.require('fibers');
   //var userId = this.userId;
-  var addSubscription = function(userId, feedId) {
-      console.log("in addSubscription feedId is...." + feedId);
-      Meteor.users.update({
-        _id: userId
-      },
-      {
-        $addToSet: {
-          subscriptions: feedId 
-        }
-      });
-    };
-
+  var Future = Npm.require('fibers/future');
+    
   var fetchFeed, pollFeeds;
   fetchFeed = function(feed, cb) {
-    var userId = this.userId;
+    var isFeed;
+    var future = new Future();
     console.log("iN fetchFeed, feed is........." + feed);
     var results = [];
     var options = {
@@ -33,14 +24,13 @@ Meteor.startup(function() {
  
       }
     };
-    var isFeed = Feeds.findOne({
+    isFeed = Feeds.findOne({
             url:feed 
     });
     if(isFeed) {
       console.log("feed already there, adding subscription for...." + feed);
-      addSubscription(userId, isFeed._id);
       console.log("@returning...........")
-      //return;
+      return cb();
     }
     else {
       console.log("in else, this indicates feed not alread in db, feed is...." + feed);
@@ -49,19 +39,20 @@ Meteor.startup(function() {
       console.log('fetching', feed);
       feedparser = new FeedParser();
       req = request(options);
-      req.on('error', function(err) {
+      req.on('error', Meteor.bindEnvironment(function(err) {
         console.log("error @request is..." + err);
-        return;
-      });
+        return cb();
+      }));
 
       req.on('response', function(res) {
-        this.pipe(feedparser);
+        var stream = this;
+        stream.pipe(feedparser);
       });
 
-      feedparser.on('error', function(err) {
+      feedparser.on('error', Meteor.bindEnvironment(function(err) {
         console.log("feedparser error is....." + err);
-        return;
-      });
+        return cb();
+      }));
  
       feedparser.on('readable', function() {
         var item;
@@ -78,21 +69,8 @@ Meteor.startup(function() {
             pubDate: stream.meta.pubDate,
             lastChecked: new Date()
           });
-          addSubscription(userId, feedId);
+        
          
-          // Meteor.users.update({
-          //   _id: userId
-          //   },
-          //   {
-          //   $addToSet: {
-          //     subscriptions: feedId 
-          //     }
-          //   }, function(err, resp){
-          //        if(err){
-          //          console.log("error adding subscription, error is..." + err.reason);
-          //        }
-          // });
-          //Fiber(function() {
           while (item = stream.read()) {
             if(item && item['rss:enclosure'] && item['rss:enclosure']['@'] && item['rss:enclosure']['@'].url){  
               results.push(Items.insert({
@@ -114,9 +92,10 @@ Meteor.startup(function() {
       });
       return feedparser.on('end', Meteor.bindEnvironment(function() {
         console.log("done with feed, results[] is..........." + results);
-        return;
+        future.return(cb());
       }));
     }
+    return future.wait();
   };
   pollFeeds = function() {
     var counter, fetchNext;
@@ -131,13 +110,12 @@ Meteor.startup(function() {
     fetchNext = function() {
       if (counter < feeds.feedsList.length) {
         console.log("Fetching feed......" + feeds.feedsList[counter]);
-        //return 
         fetchFeed(feeds.feedsList[counter++], fetchNext);
       } else {
         return console.log('done');
       }
     };
-    //return 
+    
     fetchNext();
   };
   pollFeeds();
