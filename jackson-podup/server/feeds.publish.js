@@ -13,7 +13,7 @@ Meteor.publish('feeds', function(options, searchString) {
       '$options': 'i'
     },
     '_id': {
-      '$in': user.subscriptions
+      '$nin': user.subscriptions
     }
   };
   Counts.publish(this, 'numberOfFeeds', Feeds.find(where), {noReady: true});
