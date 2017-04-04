@@ -1,18 +1,17 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-md-12">
-      <feed-add ng-show="feedsList.isLoggedIn"></feed-add>
-      <div class="alert alert-warning" role="alert" ng-hide="feedsList.isLoggedIn">
+      <feed-add ng-show="subFeeds.isLoggedIn"></feed-add>
+      <div class="alert alert-warning" role="alert" ng-hide="subFeeds.isLoggedIn">
          Log in to subscribe to feeds
      </div>
     </div>
   </div>
   <div class="row">
     <div class="col-md-12">
-      <h2>List of Feeds:</h2> <a ui-sref="subFeeds()"> My Feeds</a>
-
+      <h2>List of Feeds:</h2>
       <form class="form-inline"> 
-          <input type="search" ng-model="feedsList.searchText" placeholder="Search" />
+          <input type="search" ng-model="subFeeds.searchText" placeholder="Search" />
           <!--<feeds-sort on-change="feedsList.sortChanged(sort)" property="name" order="1"></feeds-sort> -->
       </form>
     </div>
@@ -22,7 +21,7 @@
 <div class="row">
   <div class="col-md-6">
     <ul class="feeds">
-      <li dir-paginate="feed in feedsList.feeds | itemsPerPage: feedsList.perPage" total-items="feedsList.feedsCount">        <div class="row">
+      <li dir-paginate="feed in subFeeds.feeds | itemsPerPage: subFeeds.perPage" total-items="subFeeds.feedsCount">        <div class="row">
             <div class="col-sm-8">
               <h3 class="feed-name">
                 <a ui-sref="itemsDetails({ feedId: feed._id })">
@@ -33,7 +32,7 @@
                  <h4>{{feed.title}}</h4> 
                  <p>{{feed.url}}</p>
                  <p>{{feed.pubdate}}</p>
- 
+              </h3> 
             </div>
             <div class="col-sm-4">
               <party-remove feed="feed">remove feed</party-remove>
@@ -42,5 +41,5 @@
       </div>
   </li>
 </ul>
-<dir-pagination-controls on-page-change="feedsList.pageChanged(newPageNumber)"></dir-pagination-controls>
+<dir-pagination-controls on-page-change="subFeeds.pageChanged(newPageNumber)"></dir-pagination-controls>
 </div>

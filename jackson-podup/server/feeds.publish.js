@@ -7,6 +7,22 @@ Meteor.publish('feeds', function(options, searchString) {
   var user = Meteor.users.findOne({
     _id: this.userId 
   });
+  if(options.sort) {
+    console.log("options is", options);
+    console.log("options[0] is", options[0]);
+    console.log("options[0].subFeeds is", options[0].subFeeds);
+    delete options[0].subFeeds;
+    var where = {
+    'title': {
+      '$regex': '.*' + (searchString || '') + '.*',
+      '$options': 'i'
+    },
+    '_id': {
+      '$in': user.subscriptions
+    }
+  };
+  } else {
+  //console.log("options is..", options);
   var where = {
     'title': {
       '$regex': '.*' + (searchString || '') + '.*',
@@ -16,6 +32,7 @@ Meteor.publish('feeds', function(options, searchString) {
       '$nin': user.subscriptions
     }
   };
+  }
   Counts.publish(this, 'numberOfFeeds', Feeds.find(where), {noReady: true});
   return Feeds.find(where, options);
 });
