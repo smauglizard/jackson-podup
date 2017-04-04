@@ -8,17 +8,14 @@ Meteor.publish('feeds', function(options, searchString) {
     _id: this.userId 
   });
   if(options.sort) {
-    console.log("options is", options);
-    console.log("options[0] is", options[0]);
-    console.log("options[0].subFeeds is", options[0].subFeeds);
-    delete options[0].subFeeds;
+
     var where = {
     'title': {
       '$regex': '.*' + (searchString || '') + '.*',
       '$options': 'i'
     },
     '_id': {
-      '$in': user.subscriptions
+      '$in': user.subscriptions || []
     }
   };
   } else {
@@ -29,7 +26,7 @@ Meteor.publish('feeds', function(options, searchString) {
       '$options': 'i'
     },
     '_id': {
-      '$nin': user.subscriptions
+      '$nin': user.subscriptions || []
     }
   };
   }

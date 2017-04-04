@@ -29,7 +29,7 @@ class subFeeds {
       sort: this.getReactively('sort'),
       limit: parseInt(this.getReactively('perPage')),
       skip: ((parseInt(this.getReactively('page'))) - 1) * (parseInt(this.getReactively('perPage'))),
-      //subFeeds: this.subFeeds
+      subFeeds: this.subFeeds
     }, this.getReactively('searchText')];
   });
 
@@ -78,6 +78,6 @@ function config($stateProvider) {
   $stateProvider
     .state('subFeeds', {
       url: '/subFeeds',
-      template: '<subFeeds></subFeeds>'
+      template: '<sub-feeds></sub-feeds>'
     });
 }
