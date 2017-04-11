@@ -21,6 +21,7 @@
 <!--  <li ng-repeat="feed in feedsList.feeds"> -->
 <div class="row">
   <div class="col-md-6">
+  <div class="img-rounded">
     <ul class="feeds">
       <li dir-paginate="feed in feedsList.feeds | itemsPerPage: feedsList.perPage" total-items="feedsList.feedsCount">        <div class="row">
             <div class="col-sm-8">
@@ -40,6 +41,7 @@
             </div>
         </div>
       </div>
+  </div>
   </li>
 </ul>
 <dir-pagination-controls on-page-change="feedsList.pageChanged(newPageNumber)"></dir-pagination-controls>
