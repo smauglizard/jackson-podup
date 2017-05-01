@@ -71,14 +71,14 @@ Meteor.startup(function() {
       }
      // return results;
     }));
-    return feedparser.on('end', Meteor.bindEnvironment(function() {
+    feedparser.on('end', Meteor.bindEnvironment(function() {
       if (cbcount++ < 1) {
         return cb();
       }
     }));
   };
   loadFeeds = function() {
-    var counter, fetchNext;
+    var counter, fetchNext, feed_test;
     var feeds = {};
     feeds['feedsList'] = JSON.parse(Assets.getText("starter-feeds.json"));
     console.log("feeds @begining of startup is...: " + feeds.feedsList);
@@ -95,7 +95,12 @@ Meteor.startup(function() {
         return console.log('done');
       }
     };
-    fetchNext();
+    feed_test = Feeds.find({}).count();
+    if(!feed_test > 0){
+      fetchNext();
+    } else {
+        console.log("feeds already fetched...");
+    }
   };
   loadFeeds();
 });

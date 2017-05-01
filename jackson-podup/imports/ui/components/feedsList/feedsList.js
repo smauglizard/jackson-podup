@@ -16,7 +16,7 @@ class FeedsList {
     'ngInject';
 
     $reactive(this).attach($scope);
-
+    //$scope.feed.url='';
     this.perPage = 3;
     this.page = 1;
     this.sort = {
@@ -47,6 +47,22 @@ class FeedsList {
       }
     });
   }
+
+  sub_scribe(url) {
+    if(Meteor.isClient){
+       console.log("in sub_scribe....");
+       Meteor.call('subScribe', url, function(err, result) {
+            if(err){
+                console.log(err.reason);
+            } else {
+                console.log(result);
+                return;
+            }
+        });
+
+    }
+  }
+
   pageChanged(newPage) {
     this.page = newPage;
   }
