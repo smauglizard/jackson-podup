@@ -12,29 +12,29 @@ import { Counts } from 'meteor/tmeasday:publish-counts';
 import { Meteor } from 'meteor/meteor';
 
 class FeedsList {
-  constructor($scope, $reactive) {
-    'ngInject';
+ constructor($scope, $reactive) {
+   'ngInject';
+   var self = this;
+   $reactive(this).attach($scope);
 
-    $reactive(this).attach($scope);
-    //$scope.feed.url='';
-    this.perPage = 3;
-    this.page = 1;
-    this.sort = {
+   doSubscribe = function(){
+    self.perPage = 3;
+    self.page = 1;
+    self.sort = {
       name: 1
     };
-    this.searchText = ''; 
+    self.searchText = ''; 
 
-    this.subscribe('feeds', function() {
-    return [{
+    $scope.subscribe('feeds', function() {
+      return [{
       //sort: this.getReactively('sort'),
-      limit: parseInt(this.getReactively('perPage')),
-      skip: ((parseInt(this.getReactively('page'))) - 1) * (parseInt(this.getReactively('perPage')))
-    }, this.getReactively('searchText')];
-  });
-
-
-    this.helpers({
-      feeds() {
+        limit: parseInt(this.getReactively('perPage')),
+        skip: ((parseInt(this.getReactively('page'))) - 1) * (parseInt(this.getReactively('perPage')))
+      }, this.getReactively('searchText')];
+    });
+   
+     self.helpers({
+       feeds() {
         return Feeds.find({}); //{
           //sort : this.getReactively('sort')
         //}); 
@@ -46,8 +46,13 @@ class FeedsList {
         return !!Meteor.userId();
       }
     });
-  }
-
+  };
+  deref = $scope.$watch(function() 
+            { return Meteor.userId();
+            }, function(n) 
+               { if(n) {doSubscribe();self.deref()}
+            });
+ }
   sub_scribe(url) {
     if(Meteor.isClient){
        console.log("in sub_scribe....");
@@ -63,7 +68,8 @@ class FeedsList {
     }
   }
 
-  pageChanged(newPage) {
+
+ pageChanged(newPage) {
     this.page = newPage;
   }
   //sortChanged(sort) {
