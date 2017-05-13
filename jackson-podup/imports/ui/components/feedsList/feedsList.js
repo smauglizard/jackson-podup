@@ -15,8 +15,8 @@ class FeedsList {
  constructor($scope, $reactive) {
    'ngInject';
    var self = this;
-   $reactive(this).attach($scope);
-
+   $reactive(self).attach($scope);
+   //var self = this;
    doSubscribe = function(){
     self.perPage = 3;
     self.page = 1;
@@ -25,7 +25,7 @@ class FeedsList {
     };
     self.searchText = ''; 
 
-    $scope.subscribe('feeds', function() {
+    self.subscribe('feeds', function() {
       return [{
       //sort: this.getReactively('sort'),
         limit: parseInt(this.getReactively('perPage')),
