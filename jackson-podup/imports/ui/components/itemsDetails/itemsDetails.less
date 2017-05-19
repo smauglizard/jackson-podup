@@ -1,7 +1,29 @@
 items-details {
   display: block;
- 
+  padding: 25px 0; 
   form {
     margin: 25px 0;
   }
+  ul.items{
+    padding-left: 0;
+    list-style-type: none;
+
+    > li {
+      padding: 15px;
+      background-color: #808080;
+      opacity: .5;
+      margin: 15px 0;
+    
+      border-radius:12px;
+      .item-name {
+         margin-top: 0px;
+         margin-bottom: 20px;
+         a {
+           text-decoration: none !important;
+           font-weight: 400;
+         }
+      }
+    }
+  }
+ 
 }

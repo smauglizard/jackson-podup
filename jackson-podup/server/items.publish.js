@@ -20,13 +20,24 @@ Meteor.publish('items', function(options, searchString) {
          }
        
        };
-    } else if(options.feedId) {
+    } else if(options.feedId && options.dateFrom) {
       var where = {
          'feedId': options.feedId,
          '_id':{
                '$nin' : listenedIds
+         },
+          'pubDate': {
+              $gte: options.dateFrom,
+              $lte: options.dateTo
          }
       };
+    } else {
+        var where = {
+            'feedId': options.feedId,
+            '_id':{
+                '$nin': listenedIds
+            }
+        };
     }
   
   Counts.publish(this, 'numberOfItems', Items.find(where), {noReady: true});

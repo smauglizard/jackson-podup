@@ -8,6 +8,7 @@ import { UnReads } from '../imports/api/unreads';
 
 Meteor.startup(function() {
   var fetchFeed, loadFeeds;
+
   fetchFeed = function(feed, cb) {
     var cbcount, feedparser, isfeed, options, req;
     cbcount = 0;
