@@ -97,13 +97,13 @@ Meteor.startup(function() {
           console.log('done');
       }
     };
-    //fetchNext();
+    fetchNext();
     console.log("got here...");
   };
   //var startPollFeeds = function(){
   //    pollFeeds();
   //};
-  Meteor.setInterval(pollFeeds, 1 * 60 * 1000);
+  Meteor.setInterval(pollFeeds, 60 * 60 * 1000);
   //Meteor.setInterval(pollFeeds, 24 * 60 * 60 * 1000);
 });
 
