@@ -6,7 +6,6 @@ import utilsPagination from 'angular-utils-pagination';
 import { Items } from '../../../api/items';
 import { Counts } from 'meteor/tmeasday:publish-counts';
 import './itemsDetails.html';
-//var moment = Npm.require('momentjs/moment');
 
 class ItemsDetails {
   constructor($stateParams, $scope, $reactive, moment) {

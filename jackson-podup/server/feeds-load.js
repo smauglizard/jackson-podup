@@ -54,7 +54,8 @@ Meteor.startup(function() {
           title: stream.meta.title,
           description: stream.meta.description,
           image: stream.meta.image.url,
-          pubDate: stream.meta.pubDate
+          pubDate: stream.meta.pubDate,
+          lastChecked: new Date()
         });
       }
       while (item = stream.read()) {

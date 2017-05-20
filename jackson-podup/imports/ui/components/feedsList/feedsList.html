@@ -19,30 +19,50 @@
   </div>
 <!--<ul> -->
 <!--  <li ng-repeat="feed in feedsList.feeds"> -->
-<div class="row">
+<div class="row" ng-show="feedsList.isLoggedIn">
   <div class="col-md-6">
-  <div class="img-rounded">
+   <div class="img-rounded">
     <ul class="feeds">
       <li dir-paginate="feed in feedsList.feeds | itemsPerPage: feedsList.perPage" total-items="feedsList.feedsCount">        <div class="row">
+           <div class="row">
             <div class="col-sm-8">
               <h3 class="feed-name">
-                <a ui-sref="itemsDetails({ feedId: feed._id })">
+                <a ui-sref="itemsDetails({ feedId: feed._id, period: 'weeks' })">
                   {{feed.name}}
-                  UnReads
+                  This-Week 
                 </a>
+               </h3>
+              <h3 class="feed-name">
+                 <a ui-sref="itemsDetails({ feedId: feed._id, period: 'months' })">
+                  {{feed.name}}
+                  This-Month
+               </a>
+              </h3>
+              <h3 class="feed-name">
+                <a ui-sref="itemsDetails({ feedId: feed._id, period: 'prev-monthss' })">
+                  {{feed.name}}
+                  previous-months
+              </a>
+               </h3>
+
                <img ng-src="{{feed.image}}" height="50" width="50"/>
                  <h4>{{feed.title}}</h4> 
                  <p>{{feed.url}}</p>
                  <p>{{feed.pubdate}}</p>
- 
+              <input type="button" ng-model="feed.url" ng-click="feedsList.sub_scribe(feed.url)" value="subscribe" />
+             </div>
             </div>
-            <div class="col-sm-4">
-              <party-remove feed="feed">remove feed</party-remove>
             </div>
+            <!--<div class="col-sm-4"> -->
+             <!-- <party-remove feed="feed">remove feed</party-remove> -->
+             
+            <!--</div> -->
+            </li>
+        </ul>
         </div>
       </div>
   </div>
-  </li>
-</ul>
+
 <dir-pagination-controls on-page-change="feedsList.pageChanged(newPageNumber)"></dir-pagination-controls>
-</div>
+
+
