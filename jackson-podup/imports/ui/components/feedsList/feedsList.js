@@ -1,4 +1,5 @@
 import angular from 'angular';
+//import Location from 'angular';
 import angularMeteor from 'angular-meteor';
 import uiRouter from 'angular-ui-router';
 import utilsPagination from 'angular-utils-pagination';
@@ -12,14 +13,15 @@ import { Counts } from 'meteor/tmeasday:publish-counts';
 import { Meteor } from 'meteor/meteor';
 
 class FeedsList {
- constructor($scope, $reactive) {
+ constructor($scope, $reactive, $window) {
    'ngInject';
+   console.log('constructor');
    var self = this;
+
    $reactive(self).attach($scope);
-   //var self = this;
+
    doSubscribe = function(){
     self.perPage = 3;
-    self.page = 1;
     self.sort = {
       name: 1
     };
@@ -47,11 +49,32 @@ class FeedsList {
       }
     });
   };
+
+  //this.page = +$location.hash() || 1;
+
+  self.page = +(location.hash.replace('#', '') || 1);
+  console.log("self.page is", self.page);
+   
   deref = $scope.$watch(function() 
             { return Meteor.userId();
             }, function(n) 
-               { if(n) {doSubscribe();self.deref()}
+               { if(n) {doSubscribe();deref()}
             });
+
+  self.pageChanged = function(newPage) {
+    self.page = newPage;
+    location.hash = newPage;
+  };
+
+  var hashChange = function() {
+    self.page = +(location.hash.replace('#', '') || 1);
+  };
+
+  $window.addEventListener('hashchange', hashChange);
+  $scope.$on('$destroy', function() {
+    $window.removeEventListener('hashchange', hashChange);
+  });
+
  }
   sub_scribe(url) {
     if(Meteor.isClient){
@@ -68,10 +91,10 @@ class FeedsList {
     }
   }
 
-
- pageChanged(newPage) {
-    this.page = newPage;
-  }
+// pageChanged(newPage) {
+//    $scope.page = newPage;
+//    location.hash = newPage;
+// }
   //sortChanged(sort) {
   //  this.sort = sort;
   //}
