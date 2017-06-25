@@ -50,15 +50,12 @@ class FeedsList {
     });
   };
 
-  //this.page = +$location.hash() || 1;
-
   self.page = +(location.hash.replace('#', '') || 1);
-  console.log("self.page is", self.page);
-   
+
   deref = $scope.$watch(function() 
             { return Meteor.userId();
             }, function(n) 
-               { if(n) {doSubscribe();deref()}
+               { if(n) {doSubscribe();self.deref()}
             });
 
   self.pageChanged = function(newPage) {

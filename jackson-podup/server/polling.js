@@ -14,7 +14,14 @@ Meteor.startup(function() {
     cbcount = 0;
     console.log('fetching', feed.url);
     feedparser = new FeedParser();
-    req = request(feed.url);
+    options = {
+      url: feed.url,
+      headers: {
+        'User-Agent': 'my podcatcher'
+      }
+    };
+ 
+    req = request(options);
 
     req.on('error', Meteor.bindEnvironment(function(err) {
       console.log('req error', err);
@@ -40,6 +47,7 @@ Meteor.startup(function() {
       var item;
  
       while (item = feedparser.read()) {
+        // WRONG...
         if (!Items.findOne({
           pubDate: item.pubDate
         })) {
@@ -100,10 +108,8 @@ Meteor.startup(function() {
     fetchNext();
     console.log("got here...");
   };
-  //var startPollFeeds = function(){
-  //    pollFeeds();
-  //};
-  Meteor.setInterval(pollFeeds, 60 * 60 * 1000);
+
+  Meteor.setInterval(pollFeeds, 24 * 60 * 60 * 1000);
   //Meteor.setInterval(pollFeeds, 24 * 60 * 60 * 1000);
 });
 
