@@ -1,17 +1,23 @@
 The item your selected is: {{ playItem.itemId }}
-<div class="container-fluid">
+<!--<div class="container-fluid">
   <div class="row">
-    <div class="col-md-12">
-      <playlist-add ng-show="playItem.isLoggedIn"></playlist-add>
-      <div class="alert alert-warning" role="alert" ng-hide="playItem.isLoggedIn">
+    <div class="col-md-12">-->
+<playlist-add ng-show="playItem.isLoggedIn"></playlist-add>
+  <div class="alert alert-warning" role="alert" ng-hide="playItem.isLoggedIn">
          Log in to add items to playlists...
-     </div>
-    </div>
+  </div>
+  <div class="sm2-bar-ui fixed full-width" ng-click="playItem.podClick($event)">
+    <h4>{{playItem.item.title}}</h4>
+           <!-- <div class="pod-date">
+             <pre>{{playItem.item.pubDate}}</pre>
+           </div> -->
+        <p>{{playItem.item.description}}</p>
+
   </div>
 
 <!--<p ng-repeat="item.link in playItem.item"> -->
-<audio ng-click="playItem.itemSeen()" ng-src="{{audioUrl}}" preload="auto" type="audio/mpeg" tabindex="0"controls="" />
-</div>
+<!-- <audio ng-click="playItem.itemSeen()" ng-src="{{audioUrl}}" preload="auto" type="audio/mpeg" tabindex="0"controls="" /> -->
+
 <!--<form>
   <div class="form-group">
     <label>
@@ -25,5 +31,19 @@ The item your selected is: {{ playItem.itemId }}
 <source ng-src=playItem.item.link type="audio/mpeg" /> 
 <button ng-click="playItem.playIt()">Play Item!</button>
 </audio> -->
-<!-- <button text="mp3Player" ng-include src="playItem.SoundManager"> </button> -->
-
+<!--<div ng-class="{playing:pod.playing}" ng-click="podClick($event)" class="pod">
+  <div afkl-lazy-image="{{pod.imageUrl}}" class="img"></div>
+  <div class="pod-body">
+    <div class="pod-header">
+      <div class="pod-title">
+        <h4>{{pod.title}}</h4>
+        <h6> <a href="/{{pod.feedSlug}}">{{pod.feedTitle}}</a></h6>
+      </div>
+      <div class="pod-date">
+        <pre>{{pod.pubDate | date}} {{pod.pubDate | date:'shortTime'}}</pre>
+      </div>
+    </div>
+    <p>{{pod.description}}</p>
+    <pod-controls></pod-controls>
+  </div>
+</div> -->
