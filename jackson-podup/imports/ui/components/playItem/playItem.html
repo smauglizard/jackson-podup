@@ -6,12 +6,13 @@ The item your selected is: {{ playItem.itemId }}
   <div class="alert alert-warning" role="alert" ng-hide="playItem.isLoggedIn">
          Log in to add items to playlists...
   </div>
-  <div class="sm2-bar-ui fixed full-width" ng-click="playItem.podClick($event)">
-    <h4>{{playItem.item.title}}</h4>
+  <div class="sm2-bar-ui fixed full-width" ng-click="podClick($event)">
+    <h3>{{playItem.podClick}}</h3>
+    <h4>{{item.title}}</h4>
            <!-- <div class="pod-date">
              <pre>{{playItem.item.pubDate}}</pre>
            </div> -->
-        <p>{{playItem.item.description}}</p>
+        <p>{{item.description}}</p>
 
   </div>
 

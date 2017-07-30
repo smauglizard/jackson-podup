@@ -37,12 +37,12 @@ class PlayItem {
           console.log("adding item...");
           Listened.insert({
             userId: Meteor.userId(), 
-            title:item.title,
-            itemId:itemId, 
-            url:item.url, 
-            feedId:item.feedId,
-            pubDate:item.pubDate,
-            image:item.image
+            title:this.item.title,
+            itemId:this.itemId, 
+            url:this.item.url, 
+            feedId:this.item.feedId,
+            pubDate:this.item.pubDate,
+            image:this.item.image
           });
        },
        isLoggedIn() {
@@ -51,7 +51,7 @@ class PlayItem {
     });
    
     this.url = this.item.url;
-    console.log(this.url);
+    $scope.item = this.item;
 
     //$scope.audioUrl = $sce.trustAsResourceUrl(this.url);
     //$scope.item.displayed = true;
@@ -60,7 +60,7 @@ class PlayItem {
         console.log("I made it through the if");
         console.log('this podClick is', this.podClick);
         //maybe remove scope.
-        return podClick(scope.item);
+        return podClick($scope.item);
       }
     };
   console.log("$scope.podClick is...:", this.podClick);
@@ -188,9 +188,10 @@ class PlayItem {
         lastPod.playing = false;
         lastPod.position = '';
       }
+      console.log('creating sound', item);
       lastSound = soundManager.createSound({
-        id: this.url,
-        url: decodeURI(this.url),
+        id: item.url,
+        url: decodeURI(item.url),
         onplay: events.play,
         onstop: events.stop,
         onpause: events.pause,

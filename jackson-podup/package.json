@@ -24,6 +24,7 @@
     "meteor-node-stubs": "^0.2.6",
     "moment": "^2.18.1",
     "request": "^2.81.0",
+    "soundmanager2": "^2.97.20170602",
     "utf-8-validate": "^3.0.2"
   }
 }
