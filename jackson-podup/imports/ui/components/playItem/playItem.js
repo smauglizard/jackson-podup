@@ -14,56 +14,86 @@ import './playItem.html';
 class PlayItem {
   constructor($stateParams, $reactive, $scope, $sce, $timeout, $http, $window) {
     'ngInject';
-
-    this.url='';
+    
+    var self = this;
+    self.url='';
     var arr = [];
     //var self = this;
 
     $reactive(this).attach($scope);
     //soundManager = Npm.require('soundmanager');
-    this.itemId = $stateParams.itemId;
-    console.log('this.itemId is: ', this.itemId);
+    self.itemId = $stateParams.itemId;
+    console.log('this.itemId is: ', self.itemId);
+  
+    //doSubscribe = function(){
+    self.perPage = 3;
+    self.sort = {
+      name: 1
+    };
+    self.searchText = ''; 
+
+    self.subscribe('items', function() {
+      console.log('In subscribe....');
+      return [{
+      //sort: this.getReactively('sort'),
+        limit: parseInt(self.getReactively('perPage')),
+        skip: ((parseInt(self.getReactively('page'))) - 1) * (parseInt(self.getReactively('perPage')))
+      }, self.getReactively('searchText')];
+    });
    
-    this.helpers({
+    self.helpers({
       item() {
-        return Items.findOne({_id: this.itemId}); 
+        console.log("in item function");
+        return Items.findOne({_id: self.itemId}); 
 
       },
       listened(){
         return Listened.findOne({itemId: this.itemId});
       },
-      addItem(){
-          console.trace();
-          console.log("adding item...");
-          Listened.insert({
-            userId: Meteor.userId(), 
-            title:this.item.title,
-            itemId:this.itemId, 
-            url:this.item.url, 
-            feedId:this.item.feedId,
-            pubDate:this.item.pubDate,
-            image:this.item.image
-          });
-       },
+  
        isLoggedIn() {
         return !!Meteor.userId();
       }
     });
-   
-    this.url = this.item.url;
-    $scope.item = this.item;
+    self.url = self.item.url;
+    $scope.item = self.item;
 
+   //this.page = +(location.hash.replace('#', '') || 1);
+
+  //deref = $scope.$watch(function() 
+  //          { return Meteor.userId();
+  //          }, function(n) 
+  //             { if(n) {doSubscribe();self.deref()}
+  //          });
+
+    //this.pageChanged = function(newPage) {
+    //  this.page = newPage;
+    //  location.hash = newPage;
+    //};
+
+  //var hashChange = function() {
+  //  this.page = +(location.hash.replace('#', '') || 1);
+  //};
+
+  //$window.addEventListener('hashchange', hashChange);
+  //$scope.$on('$destroy', function() {
+  //  $window.removeEventListener('hashchange', hashChange);
+  //});
+
+ 
+ 
+    
     //$scope.audioUrl = $sce.trustAsResourceUrl(this.url);
     //$scope.item.displayed = true;
     $scope.podClick = function(e) {
       if (e.target.tagName !== 'A' && e.target.parentNode.tagName !== 'A') {
         console.log("I made it through the if");
-        console.log('this podClick is', this.podClick);
+        console.log('this podClick is', self.podClick);
         //maybe remove scope.
         return podClick($scope.item);
       }
     };
-  console.log("$scope.podClick is...:", this.podClick);
+  console.log("$scope.podClick is...:", self.podClick);
   var current, data, direction, events, filter, lastPod, lastSound, pods, volume;
   console.log("soundManager status: soundManager is", soundManager);
   soundManager.setup({
@@ -121,7 +151,7 @@ class PlayItem {
           //lastPod.reportedListen = true;
           //return $http.post('/api/report-listen', {
           //  podId: lastPod._id
-          this.addItem();
+          self.addItem();
           //});
         }
       });
@@ -135,6 +165,20 @@ class PlayItem {
       return console.log(err);
     }
   };
+   addItem = function(){
+     console.trace();
+     console.log("adding item...");
+     Listened.insert({
+       userId: Meteor.userId(), 
+       title:self.item.title,
+       itemId:self.itemId, 
+       url:self.item.url, 
+       feedId:self.item.feedId,
+       pubDate:self.item.pubDate,
+       image:self.item.image
+     });
+    };
+
   getTime = function(nMSec) {
     var min, nSec, sec;
     nSec = Math.floor(nMSec / 1000);
