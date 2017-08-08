@@ -14,57 +14,105 @@ import './playItem.html';
 class PlayItem {
   constructor($stateParams, $reactive, $scope, $sce, $timeout, $http, $window) {
     'ngInject';
-    
-    var self = this;
-    self.url='';
-    var arr = [];
+    //var item;
     //var self = this;
-
+    //self.url='';
+    var arr = [];
+  // $window.onpageshow = function(event) {
+  //  if (event.persisted) {
+  //      $window.location.reload() 
+  //  }
+  // };  
+    //if(!!$window.performance && $window.performance.navigation.type == 2)
+//{
+  //  $window.location.reload();
+//}
     $reactive(this).attach($scope);
-    //soundManager = Npm.require('soundmanager');
-    self.itemId = $stateParams.itemId;
-    console.log('this.itemId is: ', self.itemId);
+    //self.myWindow = angular.element($window);
+    //var vitemId = $stateParams.itemId;
+    //this.itemId = vitemId;
+    this.itemId = $stateParams.itemId;
+    var vitemId = this.itemId;
+    console.log('this.itemId is: ', this.itemId);
+    console.log("json.stringify itemId is :", JSON.stringify(this.itemId));
+    //var stringItem = JSON.stringify(itemId);
   
     //doSubscribe = function(){
-    self.perPage = 3;
-    self.sort = {
+    this.perPage = 3;
+    this.sort = {
       name: 1
     };
-    self.searchText = ''; 
+    this.searchText = ''; 
 
-    self.subscribe('items', function() {
+    this.subscribe('items', function() {
       console.log('In subscribe....');
       return [{
       //sort: this.getReactively('sort'),
-        limit: parseInt(self.getReactively('perPage')),
-        skip: ((parseInt(self.getReactively('page'))) - 1) * (parseInt(self.getReactively('perPage')))
-      }, self.getReactively('searchText')];
+        limit: parseInt(this.getReactively('perPage')),
+        skip: ((parseInt(this.getReactively('page'))) - 1) * (parseInt(this.getReactively('perPage')))
+      }, this.getReactively('searchText')];
     });
-   
-    self.helpers({
+    get_pod = function(){
+      //if(Meteor.isServer) {
+        console.log("in sub_scribe....");
+        Meteor.call('getPod', vitemId, function(err, result) {
+          if(err){
+            console.log(err.reason);
+          } else {
+            console.log(result);
+            $scope.pod = result;
+          }
+      });
+     //}
+
+    };
+    //this.item = item;
+    this.helpers({
       item() {
         console.log("in item function");
-        return Items.findOne({_id: self.itemId}); 
+        return Items.findOne({_id: this.itemId}); 
 
       },
       listened(){
-        return Listened.findOne({itemId: this.itemId});
+        return Listened.findOne({itemId: this.getReactively('itemId')});
       },
   
        isLoggedIn() {
         return !!Meteor.userId();
       }
     });
-    self.url = self.item.url;
-    $scope.item = self.item;
-
+    //};
+    //this.url = this.item.url;
+    //this.myWindow.history.pushState('', null, './');
+    //  this.myWindow.on('popstate', function(){
+    //          $location.reload(true);
+    //});
+    if(!this.item){
+      console.log("in item if..");
+      get_pod();
+      //$scope.item = self.singleItem;
+      console.log("$scope.item in this.item if is", this.item);
+      //$scope.item = self.item;
+      this.url = $scope.pod.url;
+    } else {
+      console.log("this.item is: ", this.item);
+      $scope.item = this.item;
+    //this.url = $scope.item.url;
+      this.url = this.item.url;
+    }
    //this.page = +(location.hash.replace('#', '') || 1);
-
+   // $window.addEventListener( "pageshow", function ( event ) {
+  ///var historyTraversal = event.persisted || ( typeof $window.performance != "undefined" && $window.performance.navigation.type === 2 );
+  //if ( historyTraversal ) {
+    // Handle page restore.
+    //$window.location.reload();
+  //}
+//});
   //deref = $scope.$watch(function() 
   //          { return Meteor.userId();
   //          }, function(n) 
   //             { if(n) {doSubscribe();self.deref()}
-  //          });
+  //});
 
     //this.pageChanged = function(newPage) {
     //  this.page = newPage;
@@ -88,12 +136,12 @@ class PlayItem {
     $scope.podClick = function(e) {
       if (e.target.tagName !== 'A' && e.target.parentNode.tagName !== 'A') {
         console.log("I made it through the if");
-        console.log('this podClick is', self.podClick);
+        console.log('this podClick is', this.podClick);
         //maybe remove scope.
         return podClick($scope.item);
       }
     };
-  console.log("$scope.podClick is...:", self.podClick);
+  console.log("$scope.podClick is...:", this.podClick);
   var current, data, direction, events, filter, lastPod, lastSound, pods, volume;
   console.log("soundManager status: soundManager is", soundManager);
   soundManager.setup({
@@ -170,12 +218,12 @@ class PlayItem {
      console.log("adding item...");
      Listened.insert({
        userId: Meteor.userId(), 
-       title:self.item.title,
-       itemId:self.itemId, 
-       url:self.item.url, 
-       feedId:self.item.feedId,
-       pubDate:self.item.pubDate,
-       image:self.item.image
+       title:this.item.title,
+       itemId:this.itemId, 
+       url:this.item.url, 
+       feedId:this.item.feedId,
+       pubDate:this.item.pubDate,
+       image:this.item.image
      });
     };
 
