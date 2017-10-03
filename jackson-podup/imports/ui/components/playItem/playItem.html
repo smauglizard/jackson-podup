@@ -1,20 +1,15 @@
-The item your selected is: {{ playItem.itemId }}
+
 <!--<div class="container-fluid">
   <div class="row">
     <div class="col-md-12">-->
-<playlist-add ng-show="playItem.isLoggedIn"></playlist-add>
-  <div class="alert alert-warning" role="alert" ng-hide="playItem.isLoggedIn">
-         Log in to add items to playlists...
-  </div>
-  <div class="sm2-bar-ui fixed full-width" ng-click="podClick($event)">
-    <h3>{{playItem.podClick}}</h3>
-    <h4>{{item.title}}</h4>
+<div class="sm2-bar-ui fixed full-width" ng-click="podClick($event, playItem.item)">
+    <h3>{{playItem.item.title}}</h3>
            <!-- <div class="pod-date">
              <pre>{{playItem.item.pubDate}}</pre>
            </div> -->
         <p>{{item.description}}</p>
 
-  </div>
+</div>
 
 <!--<p ng-repeat="item.link in playItem.item"> -->
 <!-- <audio ng-click="playItem.itemSeen()" ng-src="{{audioUrl}}" preload="auto" type="audio/mpeg" tabindex="0"controls="" /> -->
