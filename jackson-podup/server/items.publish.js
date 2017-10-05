@@ -24,19 +24,23 @@ Meteor.publish('items', function(options, searchString) {
       var where = {
          'feedId': options.feedId,
          '_id':{
-               '$nin' : listenedIds
+               '$nin' : listenedIds || []
          },
           'pubDate': {
               $gte: options.dateFrom,
               $lte: options.dateTo
          }
       };
+    } else if(options.itemId){
+        where = {
+            '_id': options.itemId
+        };
     } else {
         var where = {
             'feedId': options.feedId,
-            '_id':{
-                '$nin': listenedIds
-            }
+            //'_id':{
+            //    '$nin': listenedIds
+            //}
         };
     }
   

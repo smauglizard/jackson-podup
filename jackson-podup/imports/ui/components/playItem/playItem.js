@@ -25,6 +25,13 @@ class PlayItem {
     //var self = this;
     $reactive(this).attach($scope);
     $scope.url = $stateParams.itemId;
+
+    this.subscribe('items', function() {
+        return [{
+          itemId: $stateParams.itemId
+        }];
+    });
+
     this.helpers({
       item() {
         console.log("in item function");
