@@ -1,0 +1,230 @@
+.sm2-bar-ui {
+ position: relative;
+ display: inline-block;
+ width: 100%;
+ font-family: helvetica, arial, verdana, sans-serif;
+ font-weight: normal;
+ /* prevent background border bleed */
+ /*-webkit-background-clip: padding-box;*/
+ background-clip: padding-box;
+ /* because indeed, fonts do look pretty "fat" otherwise in this case. */
+ -moz-osx-font-smoothing: grayscale;
+ -webkit-font-smoothing: antialiased;
+ /* general font niceness? */
+ /* font-smoothing: antialiased; */
+ text-rendering: optimizeLegibility;
+ min-width: 20em;
+ max-width: 30em;
+ /* take out overflow if you want an absolutely-positioned playlist dropdown. */
+ border-radius: 2px;
+ overflow: hidden;
+ /* just for fun (animate normal / full-width) */
+ transition: max-width 0.2s ease-in-out;
+ /*background-image: url(/image/fantasy-2824304_640.jpg);*/
+ background-image: url(/image/ufo-1265186_640.jpg);
+ background-size: cover;
+}
+.sm2-bar-ui,
+.sm2-bar-ui .bd a {
+ color: #fff;
+}
+
+/*.sm2-bar-ui .bd .sm2-button-element:hover {
+ /*background-color: rgba(0,0,0,0.1);*/
+ /*background-image: url(./image/black-10.png);
+ background-image: none, none;
+ background-image: url(./image/fantasy-2824304_640.jpg);
+
+}
+
+.sm2-bar-ui .bd .sm2-button-element:active {
+ /*background-color: rgba(0,0,0,0.25);
+ background-image: url(./image/black-25.png);
+ background-image: none, none;
+ background-image: url(./image/fantasy-2824304_640.jpg);
+
+}*/
+
+.sm2-bar-ui.textured .sm2-inline-texture {
+ position: absolute;
+ top: 0px;
+ left: 0px;
+ width: 100%;
+ height: 100%;
+ /* for example */
+ /* background-image: url(../image/wood_pattern_dark.png); */
+ /* additional opacity effects can be applied here. */
+ opacity: 0.75;
+
+}
+
+.sm2-bar-ui .sm2-inline-element {
+ position: relative;
+ display: inline-block;
+ vertical-align: middle;
+ padding: 0px;
+ overflow: hidden;
+}
+.sm2-bar-ui .sm2-inline-element {
+ display: table-cell;
+}
+
+.sm2-bar-ui .sm2-inline-element,
+.sm2-bar-ui .sm2-button-element .sm2-button-bd {
+ /**
+  * if you play with UI width/height, these are the important ones.
+  * NOTE: match these values if you want square UI buttons.
+  */
+ min-width: 2.8em;
+ min-height: 2.8em;
+}
+
+
+.sm2-inline-button {
+ background-position: 50% 50%;
+ background-repeat: no-repeat;
+ /* hide inner text */
+ line-height: 10em;
+ /**
+  * image-rendering seems to apply mostly to Firefox in this case. Use with caution.
+  * https://developer.mozilla.org/en-US/docs/Web/CSS/image-rendering#Browser_compatibility
+  */
+ image-rendering: -moz-crisp-edges;
+ image-rendering: -webkit-optimize-contrast;
+ image-rendering: crisp-edges;
+ -ms-interpolation-mode: nearest-neighbor;
+ -ms-interpolation-mode: bicubic;
+}
+
+.sm2-icon-play-pause,
+.sm2-icon-play-pause:hover{
+ /*background-image: url(./image/icomoon/entypo-25px-ffffff/PNG/play.png);
+ background-image: none, url(./image/icomoon/entypo-25px-ffffff/SVG/play.svg); */
+/* background-image: url(../public/image/fantasy-2824304_640.jpg);*/
+ background-image: url(/image/ufo-1265186_640.jpg);
+ background-size: 67.5%;
+ background-position: 40% 53%;
+}
+
+.sm2-bar-ui .statusbar {
+  font-size: 16px;
+  height: 1rem;
+  background: #f7f7f7;
+  border: 1px solid #ccc;
+  box-shadow: inset 0px 1px 4px #666;
+  border-radius: 2px;
+  position: relative;
+  width: 100%;
+}
+
+.sm2-bar-ui .statusbar .loading {
+  position: absolute;
+  width: 0%;
+  height: 100%;
+  background: rgba(91,91,91,0.12);
+}
+
+.sm2-bar-ui .statusbar .position {
+    position: absolute;
+    width: 0%;
+    height: 100%;
+    background: linear-gradient(to left, #c21500, #ffc500);
+
+
+
+}
+
+.sm2-bar-ui .timing {
+  position: absolute;
+  top: .2rem;
+  right: 1rem;
+  line-height: 15px;
+}
+
+.sm2-bar-ui.fixed .bd,
+.sm2-bar-ui.bottom .bd {
+ /* display: table; */
+ border-radius: 0px;
+ border-bottom: none;
+}
+
+.sm2-bar-ui .sm2-main-controls,
+.sm2-bar-ui .sm2-playlist-drawer {
+ /*background-color: #2288cc;*/
+}
+.sm2-bar-ui .sm2-inline-texture {
+ background: transparent;
+}  
+/*
+@media screen and (max-width:568px)
+  .pod
+    flex-direction column!important
+    position relative
+    .img
+      position absolute
+      z-index 0
+      right 1rem
+      top -.6rem
+    img
+      width 5rem!important
+      border-radius 0.2rem!important
+      box-shadow 0px 0px 3px #666
+    p
+      font-size 0.8rem
+      line-height 1rem
+      overflow hidden
+    h4, h6
+      display inline-block
+      clear left
+      float left
+      background rgba(255,255,255,0.6)
+    .pod-body
+      margin-left 0!important
+      z-index 1
+    .pod-header
+      flex-direction column!important
+      .pod-date
+        text-align left!important
+@media screen and (max-height:440px)
+  .popout
+    .link
+      float left
+      
+.stop-btn, .play-btn
+  cursor pointer
+  position relative
+  background white
+  border-radius 50%
+  i
+    font-size 1.4rem!important
+    margin 0!important
+  display flex
+  align-items center
+  justify-content center
+  margin 0 0.23rem
+  width 2rem
+  height 2rem
+  &:before
+    border-radius 50%
+    z-index -1
+    position absolute
+    content ''
+    top 0%
+    width 100%
+    left 0%
+    height 100%
+    transform scale(1.15) rotate(0)
+    background url(/public/images/grad.png)
+    background-size cover
+    animation r 2s linear infinite
+    box-shadow 0 0 1px #000
+  box-sizing border-box
+.play-btn
+  &:before
+    background #333
+    animation none
+  i
+    margin-left 0.2rem!important
+@keyframes r
+  to
+    transform: scale(1.15) rotate(1turn) */

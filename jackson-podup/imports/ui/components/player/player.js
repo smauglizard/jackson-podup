@@ -10,9 +10,9 @@ import angular from 'angular';
 //    'ngInject';
 export default angular.module('player', [])
 .factory('player', function($timeout) {
- 
+  //return {
   'ngInject';
-  var sound = null;
+  var sounf = null;
   var current, data, direction, events, filter, lastPod, lastSound, pods, volume;
   console.log("soundManager status: soundManager is", soundManager);
   pods = [];
@@ -173,13 +173,12 @@ export default angular.module('player', [])
       getPod: function() {
         return lastPod;
       },
-      podClick: function(item) {
+      podClick: function(pod) {
         console.log('podClick');
-        if (!item) {
-          console.log("calling skip...");
+        if (!pod) {
           return skip(null);
         } else {
-          return togglePlay(item);
+          return togglePlay(pod);
         }
       },
       setVolume: function(vol) {
@@ -190,14 +189,18 @@ export default angular.module('player', [])
         return volume;
       },
       setPosition: function(pos) {
+        console.log("setPosition called, pos is: ", pos);
         var nMsecOffset;
         nMsecOffset = Math.floor(pos * getDurationEstimate(lastSound));
+        console.log("nMsecOffset is: ", nMsecOffset);
         if (!isNaN(nMsecOffset)) {
           nMsecOffset = Math.min(nMsecOffset, lastSound.duration);
         }
         if (!isNaN(nMsecOffset)) {
+          console.log("lastSound.setPosition() called");
           lastSound.setPosition(nMsecOffset);
         }
+        console.log("returning lastSound.resume()");
         return lastSound.resume();
       },
       setFeedSlug: function(slug) {

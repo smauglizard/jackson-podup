@@ -1,0 +1,38 @@
+.sm2-bar-ui .statusbar {
+  font-size: 16px;
+  height: 1rem;
+  width: 100%;
+  background: #f7f7f7;
+  border: 1px solid #ccc;
+  box-shadow: inset 0px 1px 4px #666;
+  border-radius: 2px;
+  position: relative;
+}
+.sm2-bar-ui .statusbar .loading {
+  position: absolute;
+  width: 0%;
+  height: 100%;
+  background: rgba(91,91,91,0.12);
+}
+.sm2-bar-ui .statusbar .position {
+    position: absolute;
+    width: 0%;
+    height: 100%;
+    background: linear-gradient(to left, #c21500, #ffc500);
+}
+
+.sm2-bar-ui .timing {
+  position: absolute;
+  top: .2rem;
+  right: 1rem;
+  line-height: 15px;
+}
+.sm2-bar-ui .sm2-main-controls,
+.sm2-bar-ui .sm2-playlist-drawer {
+ /*background-color: #2288cc; */
+}
+.sm2-bar-ui .sm2-inline-texture {
+ background: transparent;
+}  
+
+

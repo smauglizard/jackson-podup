@@ -2,7 +2,7 @@ import angular from 'angular';
 import angularMeteor from 'angular-meteor';
 import { Meteor } from 'meteor/meteor';
 import uiRouter from 'angular-ui-router';
-//import { name as Player } from '../../../../client/services/player.service';
+import { name as PodControls } from '../podControls/podControls';
 import player from '../player/player.js';
 import { Items } from '../../../api/items';
 import './playItem.html';
@@ -25,7 +25,7 @@ class PlayItem {
     //var self = this;
     $reactive(this).attach($scope);
     $scope.url = $stateParams.itemId;
-
+    //$scope.pod = player.lastPod;
     this.subscribe('items', function() {
         return [{
           itemId: $stateParams.itemId
@@ -35,35 +35,25 @@ class PlayItem {
     this.helpers({
       item() {
         console.log("in item function");
-        return Items.findOne({_id: $stateParams.itemId}); 
+        return Items.findOne({_id: $scope.url}); 
       }
     });
-   // Items.findOne({_id: this.url}, function(err, resp){
-   //   if(err){
-   //     console.log("findOne error is", err);
-   //   } else {
-   //     $scope.item = resp;
-   //   }
-   // });
     console.log("$scope.item is", $scope.item);
-    //$scope.podClick = function(item) {
-     // if (e.target.tagName !== 'A' && e.target.parentNode.tagName !== 'A') {
-     //   player.podClick($scope.item);
-     // }
-    //};
+    $scope.podClick = function(e, item) {
+      //$scope.pod = player.getPod();
+      if (e.target.tagName !== 'A' && e.target.parentNode.tagName !== 'A') {
+        player.podClick(item);
+        $scope.pod = player.getPod();
+      }
+
+    };
+    console.log("player.lastPod is: ", player.getPod());
+    $scope.pod = player.getPod();
+    console.log("$scope.pod is: ", $scope.pod);
      // return scope.$on('$destroy', function() {
      //   return scope.pod.displayed = false;
      // });
-    //}
-    $scope.podClick = function(e, item) {
-      console.log("podclick triggered");
-      if (e.target.tagName !== 'A' && e.target.parentNode.tagName !== 'A') {
-        player.podClick(item);
-      }
-    };
-  }
-
-    
+    }
 }
  
 const name = 'playItem';
@@ -72,8 +62,10 @@ const name = 'playItem';
 export default angular.module(name, [
   angularMeteor,
   uiRouter,
+  PodControls,
   'player'
 ]).component(name, {
+  //template,
   templateUrl: `imports/ui/components/${name}/${name}.html`,
   controllerAs: name,
   controller: PlayItem

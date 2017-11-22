@@ -2,13 +2,24 @@
 <!--<div class="container-fluid">
   <div class="row">
     <div class="col-md-12">-->
-<div class="sm2-bar-ui fixed full-width" ng-click="podClick($event, playItem.item)">
-    <h3>{{playItem.item.title}}</h3>
-           <!-- <div class="pod-date">
-             <pre>{{playItem.item.pubDate}}</pre>
-           </div> -->
-        <p>{{item.description}}</p>
 
+
+<div class="sm2-bar-ui fixed full-width" ng-click="podClick($event, playItem.item)">
+  <div class="bd sm2-main-controls">
+    <!--<div class="sm2-inline-element sm2-button-element"> -->
+    <div class="sm2-button-element">
+      <div class="sm2-button-bd">
+        <!--<input type="button" class="sm2-inline-button sm2-icon-play-pause" value="play/pause" /> -->
+        <input type="button" value="play/pause" /> 
+    <h4>{{playItem.item.title}}</h4>
+           <!-- <div class="pod-date"> -->
+             <!--<pre>{{playItem.item.pubDate}}</pre>
+           </div> 
+        <p>{{item.description}}</p> -->
+  <pod-controls></pod-controls>
+  </div>
+  </div>
+  </div>
 </div>
 
 <!--<p ng-repeat="item.link in playItem.item"> -->

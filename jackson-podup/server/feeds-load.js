@@ -1,5 +1,4 @@
 FeedParser = Npm.require('feedparser');
-
 request = Npm.require('request');
 import { Meteor } from 'meteor/meteor';
 import { Feeds } from '../imports/api/feeds';
@@ -15,7 +14,7 @@ Meteor.startup(function() {
     options = {
       url: feed,
       headers: {
-        'User-Agent': 'my podcatcher'
+        'User-Agent': 'podcatcher'
       }
     };
     isfeed = Feeds.findOne({
@@ -98,7 +97,7 @@ Meteor.startup(function() {
       }
     };
     feed_test = Feeds.find({}).count();
-    if(!feed_test > 0){
+    if(feed_test < 200){
       fetchNext();
     } else {
         console.log("feeds already fetched...");
