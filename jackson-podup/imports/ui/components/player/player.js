@@ -1,13 +1,6 @@
 import angular from 'angular';
-//import angularMeteor from 'angular-meteor';
-//import { Meteor } from 'meteor/meteor';
-//import uiRouter from 'angular-ui-router';
-//import { Items } from '../../../api/items';
 
 
-//class Player {
-//  constructor($reactive, $timeout) {
-//    'ngInject';
 export default angular.module('player', [])
 .factory('player', function($timeout) {
   //return {
@@ -237,18 +230,6 @@ export default angular.module('player', [])
         return scrollABit();
       }
     };
-  //});
   
-   //}
 });
- // } // constructor close  
-//}
-
-//const name = 'player';
- 
-// create a module
-//export default angular.module(name, [
-//  angularMeteor,
-  //uiRouter
-//]).service("Player", Player);
 

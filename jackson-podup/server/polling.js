@@ -17,7 +17,7 @@ Meteor.startup(function() {
     options = {
       url: feed.url,
       headers: {
-        'User-Agent': 'my podcatcher'
+        'User-Agent': 'podcatcher'
       }
     };
  
