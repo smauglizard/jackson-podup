@@ -24,10 +24,11 @@ Meteor.publish('feeds', function(options, searchString) {
     'title': {
       '$regex': '.*' + (searchString || '') + '.*',
       '$options': 'i'
-    },
-    '_id': {
-      '$nin': user.subscriptions || []
     }
+    //,{
+    //'_id': {
+    //  '$nin': user.subscriptions || []
+    //}
   };
   }
   Counts.publish(this, 'numberOfFeeds', Feeds.find(where), {noReady: true});
