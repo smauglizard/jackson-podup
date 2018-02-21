@@ -38,9 +38,6 @@ Meteor.publish('items', function(options, searchString) {
     } else {
         var where = {
             'feedId': options.feedId,
-            //'_id':{
-            //    '$nin': listenedIds
-            //}
         };
     }
   

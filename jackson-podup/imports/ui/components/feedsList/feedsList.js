@@ -19,7 +19,8 @@ class FeedsList {
    var self = this;
 
    $reactive(self).attach($scope);
-
+  var bootstrap_enabled = (typeof $().modal == 'function');
+   console.log("bootstrap_enabled is", bootstrap_enabled);
    doSubscribe = function(){
     self.perPage = 3;
     self.sort = {

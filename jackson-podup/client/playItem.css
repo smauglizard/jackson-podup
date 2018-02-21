@@ -1,6 +1,8 @@
 .sm2-bar-ui {
  position: relative;
  display: inline-block;
+ padding-top: 100px;
+ /*padding-left: 100px;*/
  width: 100%;
  font-family: helvetica, arial, verdana, sans-serif;
  font-weight: normal;

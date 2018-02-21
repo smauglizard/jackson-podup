@@ -3,27 +3,31 @@
   <div class="row">
     <div class="col-md-12">-->
 <br>
-<br>
-<div class="sm2-bar-ui fixed full-width" ng-click="podClick($event, playItem.item)">
-  <div class="bd sm2-main-controls">
+  <br>
+    <br>
+      <br>
+        <div class="sm2-bar-ui fixed full-width" ng-click="podClick($event, playItem.item)">
+          <div class="bd sm2-main-controls">
     <!--<div class="sm2-inline-element sm2-button-element"> -->
-    <div class="sm2-button-element">
-      <div class="sm2-button-bd">
+            <div class="sm2-button-element">
+              <div class="sm2-button-bd">
         <!--<input type="button" class="sm2-inline-button sm2-icon-play-pause" value="play/pause" /> -->
-         <img ng-src="{{item.image}}" height="50" width="50"/>
+                <img ng-src="{{item.image}}" height="50" width="50"/>
         <!-- <input type="button" value="play/pause" /> --> 
-    <h4>{{playItem.item.title}}</h4>
-        <input type="button" value="play/pause" /> 
+                   <h4>{{playItem.item.title}}</h4>
+                      <input type="button" value="play/pause" /> 
            <!-- <div class="pod-date"> -->
              <!--<pre>{{playItem.item.pubDate}}</pre>
            </div> 
         <p>{{item.description}}</p> -->
-  <pod-controls></pod-controls>
-  </div>
-  </div>
-  </div>
-</div>
-</br>
+                   <pod-controls></pod-controls>
+              </div>
+             </div>
+           </div>
+         </div>
+       </br>
+     </br>
+   </br>
 </br>
 <!--<p ng-repeat="item.link in playItem.item"> -->
 <!-- <audio ng-click="playItem.itemSeen()" ng-src="{{audioUrl}}" preload="auto" type="audio/mpeg" tabindex="0"controls="" /> -->

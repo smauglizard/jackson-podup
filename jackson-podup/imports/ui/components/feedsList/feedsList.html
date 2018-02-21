@@ -9,10 +9,13 @@
   </div>
   <div class="row">
     <div class="col-md-12">
-      <h2>List of Feeds:</h2> <a ui-sref="subFeeds()"> My Feeds</a>
+      <h2>List of Feeds:</h2> <!--<a ui-sref="subFeeds()"> My Feeds</a> -->
 
-      <form class="form-inline"> 
+      <form class="form-inline">
+          <div class="alert alert-warning" role="alert" ng-show="feedsList.isLoggedIn">
+       
           <input type="search" ng-model="feedsList.searchText" placeholder="Search" />
+          </div>
           <!--<feeds-sort on-change="feedsList.sortChanged(sort)" property="name" order="1"></feeds-sort> -->
       </form>
     </div>
@@ -63,6 +66,8 @@
       </div>
   </div>
 
+ <div ng-show="feedsList.isLoggedIn">
+ <ul class="pagination">
 <dir-pagination-controls on-page-change="feedsList.pageChanged(newPageNumber)"></dir-pagination-controls>
-
-
+</ul>
+</div>
