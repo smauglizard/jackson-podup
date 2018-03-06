@@ -21,7 +21,8 @@
 <div class="row">
   <div class="col-md-6">
     <ul class="feeds">
-      <li dir-paginate="feed in subFeeds.feeds | itemsPerPage: subFeeds.perPage" total-items="subFeeds.feedsCount">        <div class="row">
+      <li dir-paginate="feed in subFeeds.feeds | itemsPerPage: subFeeds.perPage" total-items="subFeeds.feedsCount">      
+          <div class="row">
             <div class="col-sm-8">
               <h3 class="feed-name">
                 <a ui-sref="itemsDetails({ feedId: feed._id })">
@@ -38,8 +39,10 @@
               <party-remove feed="feed">remove feed</party-remove>
             </div>
         </div>
-      </div>
   </li>
 </ul>
-<dir-pagination-controls on-page-change="subFeeds.pageChanged(newPageNumber)"></dir-pagination-controls>
+</div>
+ <ul class="pagination">
+   <dir-pagination-controls on-page-change="subFeeds.pageChanged(newPageNumber)"></dir-pagination-controls>
+ </ul>
 </div>
